@@ -10,38 +10,62 @@ import { useEffect, useRef } from 'react';
 const Index = () => {
   const { t } = useLanguage();
   const videoRef = useRef<HTMLVideoElement>(null);
-  const lastScrollY = useRef(0);
   const videoSectionRef = useRef<HTMLElement>(null);
+  const targetTimeRef = useRef(0);
+  const currentTimeRef = useRef(0);
+  const animationFrameRef = useRef<number | null>(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const video = videoRef.current;
-      const section = videoSectionRef.current;
-      if (!video || !section) return;
+    const video = videoRef.current;
+    const section = videoSectionRef.current;
+    if (!video || !section) return;
 
-      const currentScrollY = window.scrollY;
-      const scrollDelta = currentScrollY - lastScrollY.current;
-      const sectionHeight = section.offsetHeight;
-      
-      // Calculate scroll progress within the video section (0 to 1)
-      const scrollProgress = Math.min(Math.max(currentScrollY / sectionHeight, 0), 1);
-      
-      // Map scroll progress to video time
-      if (video.duration && !isNaN(video.duration)) {
-        const targetTime = scrollProgress * video.duration;
-        
-        // Smoothly update video time based on scroll direction
-        if (scrollDelta !== 0) {
-          video.currentTime = targetTime;
-        }
-      }
-
-      lastScrollY.current = currentScrollY;
+    // Smooth interpolation function
+    const lerp = (start: number, end: number, factor: number) => {
+      return start + (end - start) * factor;
     };
 
+    // Animation loop for smooth video time updates
+    const animate = () => {
+      if (!video.duration || isNaN(video.duration)) {
+        animationFrameRef.current = requestAnimationFrame(animate);
+        return;
+      }
+
+      // Smoothly interpolate towards target time
+      const diff = Math.abs(targetTimeRef.current - currentTimeRef.current);
+      if (diff > 0.01) {
+        currentTimeRef.current = lerp(currentTimeRef.current, targetTimeRef.current, 0.15);
+        video.currentTime = currentTimeRef.current;
+      }
+
+      animationFrameRef.current = requestAnimationFrame(animate);
+    };
+
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const sectionHeight = section.offsetHeight;
+      
+      // Calculate scroll progress (0 to 1) over 1.5 screen heights for smoother control
+      const scrollProgress = Math.min(Math.max(scrollY / (sectionHeight * 1.5), 0), 1);
+      
+      // Set target time based on scroll position
+      if (video.duration && !isNaN(video.duration)) {
+        targetTimeRef.current = scrollProgress * video.duration;
+      }
+    };
+
+    // Initialize
+    handleScroll();
+    animationFrameRef.current = requestAnimationFrame(animate);
+
     window.addEventListener('scroll', handleScroll, { passive: true });
+    
     return () => {
       window.removeEventListener('scroll', handleScroll);
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
     };
   }, []);
 
