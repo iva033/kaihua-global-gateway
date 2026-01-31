@@ -76,7 +76,7 @@ const Index = () => {
                 </Button>
               </Link>
               <Link to="/about">
-                <Button size="lg" variant="outline" className="border-white/40 text-white hover:bg-white/10 px-8 py-6 text-lg">
+                <Button size="lg" variant="outline" className="border-white/40 !text-white bg-white/5 hover:bg-white/15 px-8 py-6 text-lg">
                   {t('hero.learn')}
                 </Button>
               </Link>
