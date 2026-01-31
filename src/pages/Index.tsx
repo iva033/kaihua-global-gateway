@@ -79,7 +79,7 @@ const Index = () => {
       </section>
 
       {/* Title Section - Below Video */}
-      <section className="py-16 md:py-24 gradient-hero">
+      <section id="main-content" className="py-16 md:py-24 gradient-hero scroll-mt-16">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             {/* Title */}
