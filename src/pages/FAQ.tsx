@@ -5,6 +5,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
+import ScrollReveal from '@/components/ScrollReveal';
 
 const FAQ = () => {
   const { t } = useLanguage();
@@ -58,12 +59,16 @@ const FAQ = () => {
       <section className="gradient-hero py-20">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-heading font-bold text-primary-foreground mb-6">
-              {t('faq.title')}
-            </h1>
-            <p className="text-xl text-primary-foreground/70">
-              Ответы на популярные вопросы о работе с нами
-            </p>
+            <ScrollReveal variant="fade-up">
+              <h1 className="text-4xl md:text-5xl font-heading font-bold text-primary-foreground mb-6">
+                {t('faq.title')}
+              </h1>
+            </ScrollReveal>
+            <ScrollReveal variant="fade-up" delay={100}>
+              <p className="text-xl text-primary-foreground/70">
+                Ответы на популярные вопросы о работе с нами
+              </p>
+            </ScrollReveal>
           </div>
         </div>
       </section>
@@ -74,18 +79,19 @@ const FAQ = () => {
           <div className="max-w-3xl mx-auto">
             <Accordion type="single" collapsible className="space-y-4">
               {faqs.map((faq, index) => (
-                <AccordionItem
-                  key={index}
-                  value={`item-${index}`}
-                  className="bg-card rounded-2xl border border-border/50 px-6 hover:border-primary/30 transition-colors"
-                >
-                  <AccordionTrigger className="text-left font-heading font-semibold py-6 hover:no-underline">
-                    {faq.question}
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground pb-6 leading-relaxed">
-                    {faq.answer}
-                  </AccordionContent>
-                </AccordionItem>
+                <ScrollReveal key={index} variant="fade-up" delay={index * 50}>
+                  <AccordionItem
+                    value={`item-${index}`}
+                    className="bg-card rounded-2xl border border-border/50 px-6 hover:border-primary/30 transition-colors"
+                  >
+                    <AccordionTrigger className="text-left font-heading font-semibold py-6 hover:no-underline">
+                      {faq.question}
+                    </AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground pb-6 leading-relaxed">
+                      {faq.answer}
+                    </AccordionContent>
+                  </AccordionItem>
+                </ScrollReveal>
               ))}
             </Accordion>
           </div>
@@ -96,18 +102,24 @@ const FAQ = () => {
       <section className="py-20 gradient-subtle">
         <div className="container mx-auto px-4">
           <div className="max-w-2xl mx-auto text-center">
-            <h2 className="text-3xl font-heading font-bold mb-6">
-              Остались вопросы?
-            </h2>
-            <p className="text-lg text-muted-foreground mb-8">
-              Свяжитесь с нами — мы ответим на все ваши вопросы и поможем начать сотрудничество
-            </p>
-            <a
-              href="/contact"
-              className="inline-flex items-center justify-center px-8 py-4 gradient-primary text-primary-foreground font-semibold rounded-xl shadow-glow hover:scale-105 transition-transform"
-            >
-              Связаться с нами
-            </a>
+            <ScrollReveal variant="fade-up">
+              <h2 className="text-3xl font-heading font-bold mb-6">
+                Остались вопросы?
+              </h2>
+            </ScrollReveal>
+            <ScrollReveal variant="fade-up" delay={100}>
+              <p className="text-lg text-muted-foreground mb-8">
+                Свяжитесь с нами — мы ответим на все ваши вопросы и поможем начать сотрудничество
+              </p>
+            </ScrollReveal>
+            <ScrollReveal variant="zoom-in" delay={200}>
+              <a
+                href="/contact"
+                className="inline-flex items-center justify-center px-8 py-4 gradient-primary text-primary-foreground font-semibold rounded-xl shadow-glow hover:scale-105 transition-transform"
+              >
+                Связаться с нами
+              </a>
+            </ScrollReveal>
           </div>
         </div>
       </section>
