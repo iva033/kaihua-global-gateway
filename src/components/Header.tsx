@@ -80,13 +80,13 @@ const Header = () => {
             {/* Language Toggle */}
             <Button
               variant="ghost"
-              size="icon"
+              size="sm"
               onClick={() => setLanguage(language === 'ru' ? 'en' : 'ru')}
-              className="hero-text hover:text-primary hover:bg-white/10"
+              className="hero-text hover:text-primary hover:bg-white/10 px-3 py-2 gap-1.5 rounded-lg"
               title={language === 'ru' ? 'Switch to English' : 'Переключить на русский'}
             >
-              <Globe className="h-5 w-5" />
-              <span className="ml-1 text-xs font-medium uppercase">{language}</span>
+              <Globe className="h-4 w-4" />
+              <span className="text-xs font-medium uppercase">{language}</span>
             </Button>
 
             {/* Theme Toggle */}
