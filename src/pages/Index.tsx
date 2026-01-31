@@ -11,62 +11,20 @@ const Index = () => {
   const { t } = useLanguage();
   const videoRef = useRef<HTMLVideoElement>(null);
   const videoSectionRef = useRef<HTMLElement>(null);
-  const targetTimeRef = useRef(0);
-  const currentTimeRef = useRef(0);
-  const animationFrameRef = useRef<number | null>(null);
 
   useEffect(() => {
     const video = videoRef.current;
-    const section = videoSectionRef.current;
-    if (!video || !section) return;
-
-    // Smooth interpolation function
-    const lerp = (start: number, end: number, factor: number) => {
-      return start + (end - start) * factor;
-    };
-
-    // Animation loop for smooth video time updates
-    const animate = () => {
-      if (!video.duration || isNaN(video.duration)) {
-        animationFrameRef.current = requestAnimationFrame(animate);
-        return;
-      }
-
-      // Smoothly interpolate towards target time
-      const diff = Math.abs(targetTimeRef.current - currentTimeRef.current);
-      if (diff > 0.01) {
-        currentTimeRef.current = lerp(currentTimeRef.current, targetTimeRef.current, 0.15);
-        video.currentTime = currentTimeRef.current;
-      }
-
-      animationFrameRef.current = requestAnimationFrame(animate);
-    };
+    if (!video) return;
 
     const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const sectionHeight = section.offsetHeight;
-      
-      // Calculate scroll progress (0 to 1) over 1.5 screen heights for smoother control
-      const scrollProgress = Math.min(Math.max(scrollY / (sectionHeight * 1.5), 0), 1);
-      
-      // Set target time based on scroll position
-      if (video.duration && !isNaN(video.duration)) {
-        targetTimeRef.current = scrollProgress * video.duration;
+      // Start playing when user scrolls and video is in view
+      if (window.scrollY > 10 && video.paused) {
+        video.play();
       }
     };
-
-    // Initialize
-    handleScroll();
-    animationFrameRef.current = requestAnimationFrame(animate);
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current);
-      }
-    };
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const trustItems = [
