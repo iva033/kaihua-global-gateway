@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { ArrowRight, Shield, Users, Clock, Sparkles, ChevronDown } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/button';
@@ -9,8 +9,22 @@ import { useEffect, useRef } from 'react';
 
 const Index = () => {
   const { t } = useLanguage();
+  const location = useLocation();
   const videoRef = useRef<HTMLVideoElement>(null);
   const videoSectionRef = useRef<HTMLElement>(null);
+
+  // Handle scroll to main content when navigating from other pages
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    if (params.get('scrollTo') === 'main-content') {
+      // Small delay to ensure page is rendered
+      setTimeout(() => {
+        document.getElementById('main-content')?.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+      // Clean up URL
+      window.history.replaceState({}, '', '/');
+    }
+  }, [location.search]);
 
   useEffect(() => {
     const video = videoRef.current;
