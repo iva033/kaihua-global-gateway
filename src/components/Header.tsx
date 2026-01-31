@@ -104,7 +104,7 @@ const Header = () => {
                     }
                   }
                 }}
-                className={`px-3 py-2 text-sm font-medium transition-colors rounded-lg ${
+                className={`px-3 py-2 text-sm font-medium transition-colors rounded-lg select-none outline-none ${
                   location.pathname === link.path
                     ? 'text-primary bg-white/10'
                     : 'hero-text hover:text-primary hover:bg-white/10'
@@ -125,7 +125,7 @@ const Header = () => {
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 }
               }}
-              className={`px-3 py-2 text-sm font-medium transition-colors rounded-lg ${
+              className={`px-3 py-2 text-sm font-medium transition-colors rounded-lg select-none outline-none ${
                 location.pathname === '/contact' || isContactSectionVisible
                   ? 'text-primary bg-white/10'
                   : 'hero-text hover:text-primary hover:bg-white/10'
@@ -205,7 +205,7 @@ const Header = () => {
                     }
                     setIsMobileMenuOpen(false);
                   }}
-                  className={`px-4 py-3 text-sm font-medium transition-colors rounded-lg ${
+                  className={`px-4 py-3 text-sm font-medium transition-colors rounded-lg select-none outline-none ${
                     location.pathname === link.path
                       ? 'text-primary bg-white/10'
                       : 'hero-text hover:text-primary hover:bg-white/10'
