@@ -5,26 +5,41 @@ import { Button } from '@/components/ui/button';
 import StatCard from '@/components/StatCard';
 import ContactForm from '@/components/ContactForm';
 import heroVideo from '@/assets/hero-video.mp4';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 const Index = () => {
   const { t } = useLanguage();
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [hasScrolled, setHasScrolled] = useState(false);
+  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 10 && !hasScrolled) {
-        setHasScrolled(true);
-        if (videoRef.current) {
-          videoRef.current.play();
-        }
+      // Start playing when scrolling
+      if (videoRef.current && videoRef.current.paused) {
+        videoRef.current.play();
       }
+
+      // Clear existing timeout
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+
+      // Pause video after 150ms of no scrolling
+      scrollTimeoutRef.current = setTimeout(() => {
+        if (videoRef.current && !videoRef.current.paused) {
+          videoRef.current.pause();
+        }
+      }, 150);
     };
 
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [hasScrolled]);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+    };
+  }, []);
 
   const trustItems = [
     {
