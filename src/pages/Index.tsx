@@ -55,10 +55,6 @@ const Index = () => {
               />
             </div>
 
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/15 text-white mb-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
-              <span className="text-sm font-medium">{t('hero.years')}</span>
-            </div>
 
             {/* Title */}
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold hero-text mb-4 animate-fade-in" style={{ animationDelay: '0.3s' }}>
