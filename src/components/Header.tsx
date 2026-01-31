@@ -68,13 +68,13 @@ const Header = () => {
           {/* Logo */}
           <Link 
             to="/" 
-            className="flex items-center gap-3 group"
+            className="flex items-center gap-3 px-3 py-2 -ml-3 rounded-xl transition-all duration-200 hover:bg-white/10 hover:scale-[1.03] active:scale-[0.97] select-none outline-none"
             onClick={handleLogoClick}
           >
             <img
               src={logo}
               alt="Kaihua"
-              className="h-10 w-10 object-contain transition-transform group-hover:scale-110"
+              className="h-10 w-10 object-contain"
             />
             <div className="hidden sm:block">
               <span className="text-lg font-heading font-bold hero-text">
