@@ -95,12 +95,14 @@ const Index = () => {
 
             {/* CTAs */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in" style={{ animationDelay: '0.3s' }}>
-              <Link to="/contact">
-                <Button size="lg" className="gradient-primary text-white font-semibold px-8 py-6 text-lg shadow-glow hover:scale-105 transition-transform">
-                  {t('hero.cta')}
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-              </Link>
+              <Button 
+                size="lg" 
+                className="gradient-primary text-white font-semibold px-8 py-6 text-lg shadow-glow hover:scale-105 transition-transform"
+                onClick={() => document.getElementById('contact-section')?.scrollIntoView({ behavior: 'smooth' })}
+              >
+                {t('hero.cta')}
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
               <Link to="/about">
                 <Button size="lg" variant="outline" className="border-white/40 !text-white bg-white/5 hover:bg-white/15 px-8 py-6 text-lg">
                   {t('hero.learn')}
@@ -149,7 +151,7 @@ const Index = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 gradient-hero">
+      <section id="contact-section" className="py-24 gradient-hero scroll-mt-20">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-heading font-bold hero-text text-center mb-8">

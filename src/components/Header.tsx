@@ -9,6 +9,7 @@ import logo from '@/assets/logo.png';
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isContactSectionVisible, setIsContactSectionVisible] = useState(false);
   const { language, setLanguage, t } = useLanguage();
   const { theme, toggleTheme } = useTheme();
   const location = useLocation();
@@ -16,10 +17,23 @@ const Header = () => {
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
+      
+      // Check if contact section is in view (only on homepage)
+      if (location.pathname === '/') {
+        const contactSection = document.getElementById('contact-section');
+        if (contactSection) {
+          const rect = contactSection.getBoundingClientRect();
+          const isVisible = rect.top <= 150 && rect.bottom >= 150;
+          setIsContactSectionVisible(isVisible);
+        }
+      } else {
+        setIsContactSectionVisible(false);
+      }
     };
     window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Check initial state
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [location.pathname]);
 
   const navLinks = [
     { path: '/', label: t('nav.home') },
@@ -73,6 +87,23 @@ const Header = () => {
                 {link.label}
               </Link>
             ))}
+            {/* Contact link with scroll detection */}
+            <Link
+              to={location.pathname === '/' ? '#contact-section' : '/contact'}
+              onClick={(e) => {
+                if (location.pathname === '/') {
+                  e.preventDefault();
+                  document.getElementById('contact-section')?.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+              className={`px-3 py-2 text-sm font-medium transition-colors rounded-lg ${
+                location.pathname === '/contact' || isContactSectionVisible
+                  ? 'text-primary bg-white/10'
+                  : 'hero-text hover:text-primary hover:bg-white/10'
+              }`}
+            >
+              {t('nav.contact')}
+            </Link>
           </nav>
 
           {/* Actions */}
