@@ -93,9 +93,15 @@ const Header = () => {
                 key={link.path}
                 to={link.path}
                 onClick={(e) => {
-                  // Prevent scroll to top on double-click when already on this page
                   if (location.pathname === link.path) {
                     e.preventDefault();
+                    if (link.path === '/') {
+                      // On home page, scroll to main content (skip video)
+                      document.getElementById('main-content')?.scrollIntoView({ behavior: 'smooth' });
+                    } else {
+                      // On other pages, scroll to top
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
                   }
                 }}
                 className={`px-3 py-2 text-sm font-medium transition-colors rounded-lg ${
@@ -186,9 +192,13 @@ const Header = () => {
                   key={link.path}
                   to={link.path}
                   onClick={(e) => {
-                    // Prevent scroll to top when already on this page
                     if (location.pathname === link.path) {
                       e.preventDefault();
+                      if (link.path === '/') {
+                        document.getElementById('main-content')?.scrollIntoView({ behavior: 'smooth' });
+                      } else {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                      }
                     }
                     setIsMobileMenuOpen(false);
                   }}
