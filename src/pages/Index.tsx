@@ -10,34 +10,38 @@ import { useEffect, useRef } from 'react';
 const Index = () => {
   const { t } = useLanguage();
   const videoRef = useRef<HTMLVideoElement>(null);
-  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const lastScrollY = useRef(0);
+  const videoSectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
-      // Start playing when scrolling
-      if (videoRef.current && videoRef.current.paused) {
-        videoRef.current.play();
-      }
+      const video = videoRef.current;
+      const section = videoSectionRef.current;
+      if (!video || !section) return;
 
-      // Clear existing timeout
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current);
-      }
-
-      // Pause video after 150ms of no scrolling
-      scrollTimeoutRef.current = setTimeout(() => {
-        if (videoRef.current && !videoRef.current.paused) {
-          videoRef.current.pause();
+      const currentScrollY = window.scrollY;
+      const scrollDelta = currentScrollY - lastScrollY.current;
+      const sectionHeight = section.offsetHeight;
+      
+      // Calculate scroll progress within the video section (0 to 1)
+      const scrollProgress = Math.min(Math.max(currentScrollY / sectionHeight, 0), 1);
+      
+      // Map scroll progress to video time
+      if (video.duration && !isNaN(video.duration)) {
+        const targetTime = scrollProgress * video.duration;
+        
+        // Smoothly update video time based on scroll direction
+        if (scrollDelta !== 0) {
+          video.currentTime = targetTime;
         }
-      }, 150);
+      }
+
+      lastScrollY.current = currentScrollY;
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current);
-      }
     };
   }, []);
 
@@ -67,7 +71,7 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Video Section */}
-      <section className="relative min-h-screen w-full overflow-hidden">
+      <section ref={videoSectionRef} className="relative min-h-screen w-full overflow-hidden">
         {/* Full-screen Video */}
         <video
           ref={videoRef}
