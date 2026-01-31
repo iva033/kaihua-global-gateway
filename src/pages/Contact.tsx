@@ -14,7 +14,7 @@ const Contact = () => {
     {
       icon: Phone,
       title: 'Телефон',
-      content: '+86 XXX XXXX XXXX',
+      content: '+86 189 4344 4284',
     },
     {
       icon: Mail,
