@@ -55,7 +55,7 @@ const ContactForm = () => {
             id="name"
             {...register('name')}
             placeholder={t('contact.name')}
-            className="bg-background/50 border-border/50 focus:border-primary"
+            className={`bg-background/50 border-border/50 focus:border-primary ${errors.name ? 'border-destructive' : ''}`}
           />
           {errors.name && (
             <p className="text-sm text-destructive">{errors.name.message}</p>
@@ -69,7 +69,7 @@ const ContactForm = () => {
             type="tel"
             {...register('phone')}
             placeholder="+7 XXX XXX XX XX"
-            className="bg-background/50 border-border/50 focus:border-primary"
+            className={`bg-background/50 border-border/50 focus:border-primary ${errors.phone ? 'border-destructive' : ''}`}
           />
           {errors.phone && (
             <p className="text-sm text-destructive">{errors.phone.message}</p>
@@ -85,7 +85,7 @@ const ContactForm = () => {
             type="email"
             {...register('email')}
             placeholder="email@example.com"
-            className="bg-background/50 border-border/50 focus:border-primary"
+            className={`bg-background/50 border-border/50 focus:border-primary ${errors.email ? 'border-destructive' : ''}`}
           />
           {errors.email && (
             <p className="text-sm text-destructive">{errors.email.message}</p>
