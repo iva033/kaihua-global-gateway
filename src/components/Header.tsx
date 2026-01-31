@@ -92,6 +92,12 @@ const Header = () => {
               <Link
                 key={link.path}
                 to={link.path}
+                onClick={(e) => {
+                  // Prevent scroll to top on double-click when already on this page
+                  if (location.pathname === link.path) {
+                    e.preventDefault();
+                  }
+                }}
                 className={`px-3 py-2 text-sm font-medium transition-colors rounded-lg ${
                   location.pathname === link.path
                     ? 'text-primary bg-white/10'
@@ -179,7 +185,13 @@ const Header = () => {
                 <Link
                   key={link.path}
                   to={link.path}
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={(e) => {
+                    // Prevent scroll to top when already on this page
+                    if (location.pathname === link.path) {
+                      e.preventDefault();
+                    }
+                    setIsMobileMenuOpen(false);
+                  }}
                   className={`px-4 py-3 text-sm font-medium transition-colors rounded-lg ${
                     location.pathname === link.path
                       ? 'text-primary bg-white/10'
