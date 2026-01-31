@@ -5,9 +5,26 @@ import { Button } from '@/components/ui/button';
 import StatCard from '@/components/StatCard';
 import ContactForm from '@/components/ContactForm';
 import heroVideo from '@/assets/hero-video.mp4';
+import { useEffect, useRef, useState } from 'react';
 
 const Index = () => {
   const { t } = useLanguage();
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [hasScrolled, setHasScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 10 && !hasScrolled) {
+        setHasScrolled(true);
+        if (videoRef.current) {
+          videoRef.current.play();
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [hasScrolled]);
 
   const trustItems = [
     {
@@ -38,7 +55,7 @@ const Index = () => {
       <section className="relative min-h-screen w-full overflow-hidden">
         {/* Full-screen Video */}
         <video
-          autoPlay
+          ref={videoRef}
           muted
           loop
           playsInline
