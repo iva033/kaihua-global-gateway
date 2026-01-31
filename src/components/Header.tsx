@@ -49,10 +49,10 @@ const Header = () => {
               className="h-10 w-10 object-contain transition-transform group-hover:scale-110"
             />
             <div className="hidden sm:block">
-              <span className="text-lg font-heading font-bold text-primary-foreground">
+              <span className="text-lg font-heading font-bold hero-text">
                 KAIHUA
               </span>
-              <span className="block text-xs text-primary-foreground/70">
+              <span className="block text-xs hero-text-muted">
                 Automobile Export
               </span>
             </div>
@@ -66,8 +66,8 @@ const Header = () => {
                 to={link.path}
                 className={`px-3 py-2 text-sm font-medium transition-colors rounded-lg ${
                   location.pathname === link.path
-                    ? 'text-primary bg-primary/10'
-                    : 'text-primary-foreground/80 hover:text-primary hover:bg-primary/5'
+                    ? 'text-primary bg-white/10'
+                    : 'hero-text hover:text-primary hover:bg-white/10'
                 }`}
               >
                 {link.label}
@@ -82,7 +82,7 @@ const Header = () => {
               variant="ghost"
               size="icon"
               onClick={() => setLanguage(language === 'ru' ? 'en' : 'ru')}
-              className="text-primary-foreground/80 hover:text-primary hover:bg-primary/10"
+              className="hero-text hover:text-primary hover:bg-white/10"
               title={language === 'ru' ? 'Switch to English' : 'Переключить на русский'}
             >
               <Globe className="h-5 w-5" />
@@ -94,7 +94,7 @@ const Header = () => {
               variant="ghost"
               size="icon"
               onClick={toggleTheme}
-              className="text-primary-foreground/80 hover:text-primary hover:bg-primary/10"
+              className="hero-text hover:text-primary hover:bg-white/10"
             >
               {theme === 'dark' ? (
                 <Sun className="h-5 w-5" />
@@ -105,7 +105,7 @@ const Header = () => {
 
             {/* CTA Button */}
             <Link to="/contact" className="hidden md:block">
-              <Button className="gradient-primary text-primary-foreground font-medium shadow-glow">
+              <Button className="gradient-primary text-white font-medium shadow-glow">
                 {t('nav.contact')}
               </Button>
             </Link>
@@ -114,7 +114,7 @@ const Header = () => {
             <Button
               variant="ghost"
               size="icon"
-              className="lg:hidden text-primary-foreground/80"
+              className="lg:hidden hero-text"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
               {isMobileMenuOpen ? (
@@ -128,7 +128,7 @@ const Header = () => {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <nav className="lg:hidden mt-4 pb-4 border-t border-primary/20 pt-4 animate-fade-in">
+          <nav className="lg:hidden mt-4 pb-4 border-t border-white/20 pt-4 animate-fade-in">
             <div className="flex flex-col gap-2">
               {navLinks.map((link) => (
                 <Link
@@ -137,8 +137,8 @@ const Header = () => {
                   onClick={() => setIsMobileMenuOpen(false)}
                   className={`px-4 py-3 text-sm font-medium transition-colors rounded-lg ${
                     location.pathname === link.path
-                      ? 'text-primary bg-primary/10'
-                      : 'text-primary-foreground/80 hover:text-primary hover:bg-primary/5'
+                      ? 'text-primary bg-white/10'
+                      : 'hero-text hover:text-primary hover:bg-white/10'
                   }`}
                 >
                   {link.label}
@@ -149,7 +149,7 @@ const Header = () => {
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="mt-2"
               >
-                <Button className="w-full gradient-primary text-primary-foreground font-medium">
+                <Button className="w-full gradient-primary text-white font-medium">
                   {t('nav.contact')}
                 </Button>
               </Link>

@@ -56,31 +56,31 @@ const Index = () => {
             </div>
 
             {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/20 text-primary mb-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/15 text-white mb-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
               <span className="text-sm font-medium">{t('hero.years')}</span>
             </div>
 
             {/* Title */}
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold text-primary-foreground mb-4 animate-fade-in" style={{ animationDelay: '0.3s' }}>
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold hero-text mb-4 animate-fade-in" style={{ animationDelay: '0.3s' }}>
               {t('hero.title')}
               <span className="block text-gradient mt-2">{t('hero.subtitle')}</span>
             </h1>
 
             {/* Description */}
-            <p className="text-lg md:text-xl text-primary-foreground/70 max-w-2xl mx-auto mb-12 animate-fade-in" style={{ animationDelay: '0.4s' }}>
+            <p className="text-lg md:text-xl hero-text-muted max-w-2xl mx-auto mb-12 animate-fade-in" style={{ animationDelay: '0.4s' }}>
               {t('hero.description')}
             </p>
 
             {/* CTAs */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in" style={{ animationDelay: '0.5s' }}>
               <Link to="/contact">
-                <Button size="lg" className="gradient-primary text-primary-foreground font-semibold px-8 py-6 text-lg shadow-glow hover:scale-105 transition-transform">
+                <Button size="lg" className="gradient-primary text-white font-semibold px-8 py-6 text-lg shadow-glow hover:scale-105 transition-transform">
                   {t('hero.cta')}
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
               <Link to="/about">
-                <Button size="lg" variant="outline" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 px-8 py-6 text-lg">
+                <Button size="lg" variant="outline" className="border-white/40 text-white hover:bg-white/10 px-8 py-6 text-lg">
                   {t('hero.learn')}
                 </Button>
               </Link>
@@ -98,8 +98,8 @@ const Index = () => {
 
         {/* Scroll Indicator */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-          <div className="w-6 h-10 rounded-full border-2 border-primary-foreground/30 flex items-start justify-center p-2">
-            <div className="w-1 h-2 bg-primary-foreground/50 rounded-full animate-pulse" />
+          <div className="w-6 h-10 rounded-full border-2 border-white/40 flex items-start justify-center p-2">
+            <div className="w-1 h-2 bg-white/60 rounded-full animate-pulse" />
           </div>
         </div>
       </section>
@@ -137,10 +137,10 @@ const Index = () => {
       <section className="py-24 gradient-hero">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary-foreground text-center mb-8">
+            <h2 className="text-3xl md:text-4xl font-heading font-bold hero-text text-center mb-8">
               {t('contact.title')}
             </h2>
-            <div className="bg-card/10 backdrop-blur rounded-3xl p-8 md:p-12 border border-primary-foreground/10">
+            <div className="bg-white/10 backdrop-blur rounded-3xl p-8 md:p-12 border border-white/20">
               <ContactForm />
             </div>
           </div>
