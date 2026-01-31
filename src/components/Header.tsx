@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, Moon, Sun, Globe } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useTheme } from '@/contexts/ThemeContext';
@@ -13,6 +13,16 @@ const Header = () => {
   const { language, setLanguage, t } = useLanguage();
   const { theme, toggleTheme } = useTheme();
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleLogoClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (location.pathname === '/') {
+      document.getElementById('main-content')?.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      navigate('/?scrollTo=main-content');
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -59,12 +69,7 @@ const Header = () => {
           <Link 
             to="/" 
             className="flex items-center gap-3 group"
-            onClick={(e) => {
-              if (location.pathname === '/') {
-                e.preventDefault();
-                document.getElementById('main-content')?.scrollIntoView({ behavior: 'smooth' });
-              }
-            }}
+            onClick={handleLogoClick}
           >
             <img
               src={logo}
