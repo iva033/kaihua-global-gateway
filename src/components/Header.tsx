@@ -120,6 +120,9 @@ const Header = () => {
                 if (location.pathname === '/') {
                   e.preventDefault();
                   document.getElementById('contact-section')?.scrollIntoView({ behavior: 'smooth' });
+                } else if (location.pathname === '/contact') {
+                  e.preventDefault();
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
                 }
               }}
               className={`px-3 py-2 text-sm font-medium transition-colors rounded-lg ${
