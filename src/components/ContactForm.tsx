@@ -120,18 +120,18 @@ const ContactForm = () => {
       <Button
         type="submit"
         disabled={isSubmitting || isSubmitted}
-        className="w-full gradient-primary text-primary-foreground font-semibold py-6 text-lg shadow-glow hover:scale-[1.02] transition-transform"
+        className="w-full gradient-primary text-primary-foreground font-semibold py-6 text-lg shadow-glow hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
       >
         {isSubmitted ? (
           <>
-            <CheckCircle className="mr-2 h-5 w-5" />
+            <CheckCircle className="mr-2 h-5 w-5 animate-scale-in" />
             {t('contact.success')}
           </>
         ) : isSubmitting ? (
           <span className="animate-pulse">...</span>
         ) : (
           <>
-            <Send className="mr-2 h-5 w-5" />
+            <Send className="mr-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
             {t('contact.submit')}
           </>
         )}
