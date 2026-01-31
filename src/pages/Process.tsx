@@ -1,5 +1,6 @@
 import { Search, Wallet, ClipboardCheck, CreditCard, FileText, Truck } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import ScrollReveal from '@/components/ScrollReveal';
 
 const Process = () => {
   const { t } = useLanguage();
@@ -55,12 +56,16 @@ const Process = () => {
       <section className="gradient-hero py-20">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-heading font-bold text-primary-foreground mb-6">
-              {t('process.title')}
-            </h1>
-            <p className="text-xl text-primary-foreground/70">
-              Прозрачный пошаговый процесс от поиска до доставки
-            </p>
+            <ScrollReveal variant="fade-up">
+              <h1 className="text-4xl md:text-5xl font-heading font-bold text-primary-foreground mb-6">
+                {t('process.title')}
+              </h1>
+            </ScrollReveal>
+            <ScrollReveal variant="fade-up" delay={100}>
+              <p className="text-xl text-primary-foreground/70">
+                Прозрачный пошаговый процесс от поиска до доставки
+              </p>
+            </ScrollReveal>
           </div>
         </div>
       </section>
@@ -70,50 +75,55 @@ const Process = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             {steps.map((step, index) => (
-              <div
-                key={step.number}
-                className={`relative flex gap-8 pb-12 last:pb-0 ${
-                  index % 2 === 0 ? '' : 'flex-row-reverse text-right'
-                }`}
+              <ScrollReveal 
+                key={step.number} 
+                variant={index % 2 === 0 ? 'fade-right' : 'fade-left'} 
+                delay={index * 50}
               >
-                {/* Line */}
-                {index < steps.length - 1 && (
-                  <div className="absolute left-1/2 top-20 bottom-0 w-0.5 bg-border -translate-x-1/2" />
-                )}
+                <div
+                  className={`relative flex gap-8 pb-12 last:pb-0 ${
+                    index % 2 === 0 ? '' : 'flex-row-reverse text-right'
+                  }`}
+                >
+                  {/* Line */}
+                  {index < steps.length - 1 && (
+                    <div className="absolute left-1/2 top-20 bottom-0 w-0.5 bg-border -translate-x-1/2" />
+                  )}
 
-                {/* Content */}
-                <div className="flex-1">
-                  <div
-                    className={`bg-card rounded-2xl p-8 border border-border/50 hover:border-primary/30 hover:shadow-lg transition-all ${
-                      index % 2 === 0 ? 'mr-8' : 'ml-8'
-                    }`}
-                  >
-                    <div className={`flex items-center gap-4 mb-4 ${index % 2 === 0 ? '' : 'flex-row-reverse'}`}>
-                      <div className="w-12 h-12 rounded-xl gradient-primary flex items-center justify-center">
-                        <step.icon className="h-6 w-6 text-primary-foreground" />
+                  {/* Content */}
+                  <div className="flex-1">
+                    <div
+                      className={`bg-card rounded-2xl p-8 border border-border/50 hover:border-primary/30 hover:shadow-lg transition-all ${
+                        index % 2 === 0 ? 'mr-8' : 'ml-8'
+                      }`}
+                    >
+                      <div className={`flex items-center gap-4 mb-4 ${index % 2 === 0 ? '' : 'flex-row-reverse'}`}>
+                        <div className="w-12 h-12 rounded-xl gradient-primary flex items-center justify-center">
+                          <step.icon className="h-6 w-6 text-primary-foreground" />
+                        </div>
+                        <div>
+                          <span className="text-primary text-sm font-medium">Шаг {step.number}</span>
+                          <h3 className="font-heading font-semibold text-xl">{step.title}</h3>
+                        </div>
                       </div>
-                      <div>
-                        <span className="text-primary text-sm font-medium">Шаг {step.number}</span>
-                        <h3 className="font-heading font-semibold text-xl">{step.title}</h3>
-                      </div>
+                      <p className="text-muted-foreground text-sm leading-relaxed">
+                        {step.details}
+                      </p>
                     </div>
-                    <p className="text-muted-foreground text-sm leading-relaxed">
-                      {step.details}
-                    </p>
                   </div>
-                </div>
 
-                {/* Number Circle */}
-                <div className="relative z-10 flex-shrink-0">
-                  <div className="w-16 h-16 rounded-full gradient-primary flex items-center justify-center shadow-glow">
-                    <span className="text-xl font-heading font-bold text-primary-foreground">
-                      {step.number}
-                    </span>
+                  {/* Number Circle */}
+                  <div className="relative z-10 flex-shrink-0">
+                    <div className="w-16 h-16 rounded-full gradient-primary flex items-center justify-center shadow-glow">
+                      <span className="text-xl font-heading font-bold text-primary-foreground">
+                        {step.number}
+                      </span>
+                    </div>
                   </div>
-                </div>
 
-                <div className="flex-1" />
-              </div>
+                  <div className="flex-1" />
+                </div>
+              </ScrollReveal>
             ))}
           </div>
         </div>
@@ -123,18 +133,22 @@ const Process = () => {
       <section className="py-20 gradient-subtle">
         <div className="container mx-auto px-4">
           <div className="max-w-2xl mx-auto text-center">
-            <h2 className="text-3xl font-heading font-bold mb-8">Сроки доставки</h2>
-            <div className="bg-card rounded-3xl p-8 md:p-12 border border-border/50">
-              <div className="text-6xl font-heading font-bold text-gradient mb-4">
-                10–25
+            <ScrollReveal variant="fade-up">
+              <h2 className="text-3xl font-heading font-bold mb-8">Сроки доставки</h2>
+            </ScrollReveal>
+            <ScrollReveal variant="zoom-in" delay={100}>
+              <div className="bg-card rounded-3xl p-8 md:p-12 border border-border/50">
+                <div className="text-6xl font-heading font-bold text-gradient mb-4">
+                  10–25
+                </div>
+                <p className="text-xl text-muted-foreground mb-6">
+                  дней до Уссурийска
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  Срок зависит от местоположения автомобиля в Китае и времени оформления документов
+                </p>
               </div>
-              <p className="text-xl text-muted-foreground mb-6">
-                дней до Уссурийска
-              </p>
-              <p className="text-sm text-muted-foreground">
-                Срок зависит от местоположения автомобиля в Китае и времени оформления документов
-              </p>
-            </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>
