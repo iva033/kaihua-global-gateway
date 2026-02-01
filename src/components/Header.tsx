@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, X, Moon, Sun, Globe } from 'lucide-react';
+import { Menu, X, Moon, Sun, Globe, Volume2, VolumeX } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useTheme } from '@/contexts/ThemeContext';
 import { Button } from '@/components/ui/button';
@@ -11,7 +11,7 @@ const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isContactSectionVisible, setIsContactSectionVisible] = useState(false);
   const { language, setLanguage, t } = useLanguage();
-  const { theme, toggleTheme } = useTheme();
+  const { theme, toggleTheme, soundEnabled, setSoundEnabled } = useTheme();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -160,6 +160,21 @@ const Header = () => {
                 <Sun className="h-5 w-5" />
               ) : (
                 <Moon className="h-5 w-5" />
+              )}
+            </Button>
+
+            {/* Sound Toggle */}
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setSoundEnabled(!soundEnabled)}
+              className="hero-text hover:text-primary hover:bg-white/10"
+              title={soundEnabled ? 'Отключить звук' : 'Включить звук'}
+            >
+              {soundEnabled ? (
+                <Volume2 className="h-5 w-5" />
+              ) : (
+                <VolumeX className="h-5 w-5" />
               )}
             </Button>
 

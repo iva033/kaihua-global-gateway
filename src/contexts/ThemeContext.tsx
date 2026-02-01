@@ -5,6 +5,8 @@ type Theme = 'light' | 'dark';
 interface ThemeContextType {
   theme: Theme;
   toggleTheme: () => void;
+  soundEnabled: boolean;
+  setSoundEnabled: (enabled: boolean) => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -14,15 +16,12 @@ const playToggleSound = (isDark: boolean) => {
   try {
     const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
     
-    // Create oscillator for the tone
     const oscillator = audioContext.createOscillator();
     const gainNode = audioContext.createGain();
     
-    // Different frequencies for light/dark mode
-    oscillator.frequency.setValueAtTime(isDark ? 440 : 523, audioContext.currentTime); // A4 for dark, C5 for light
+    oscillator.frequency.setValueAtTime(isDark ? 440 : 523, audioContext.currentTime);
     oscillator.type = 'sine';
     
-    // Envelope for a soft click
     gainNode.gain.setValueAtTime(0, audioContext.currentTime);
     gainNode.gain.linearRampToValueAtTime(0.1, audioContext.currentTime + 0.01);
     gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.15);
@@ -33,7 +32,6 @@ const playToggleSound = (isDark: boolean) => {
     oscillator.start(audioContext.currentTime);
     oscillator.stop(audioContext.currentTime + 0.15);
     
-    // Clean up
     setTimeout(() => audioContext.close(), 200);
   } catch (e) {
     // Silently fail if audio context is not available
@@ -47,30 +45,42 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   });
 
+  const [soundEnabled, setSoundEnabledState] = useState<boolean>(() => {
+    const saved = localStorage.getItem('kaihua-sound');
+    return saved !== 'false'; // Default to true
+  });
+
   useEffect(() => {
     localStorage.setItem('kaihua-theme', theme);
     document.documentElement.classList.toggle('dark', theme === 'dark');
   }, [theme]);
 
+  useEffect(() => {
+    localStorage.setItem('kaihua-sound', String(soundEnabled));
+  }, [soundEnabled]);
+
+  const setSoundEnabled = useCallback((enabled: boolean) => {
+    setSoundEnabledState(enabled);
+  }, []);
+
   const toggleTheme = useCallback(() => {
-    // Add transition class for smooth animation
     document.documentElement.classList.add('theme-transitioning');
     
     const newTheme = theme === 'light' ? 'dark' : 'light';
     
-    // Play toggle sound
-    playToggleSound(newTheme === 'dark');
+    if (soundEnabled) {
+      playToggleSound(newTheme === 'dark');
+    }
     
     setTheme(newTheme);
     
-    // Remove class after animation completes
     setTimeout(() => {
       document.documentElement.classList.remove('theme-transitioning');
     }, 500);
-  }, [theme]);
+  }, [theme, soundEnabled]);
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider value={{ theme, toggleTheme, soundEnabled, setSoundEnabled }}>
       {children}
     </ThemeContext.Provider>
   );
