@@ -19,12 +19,12 @@ const About = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
             <ScrollReveal variant="fade-up">
-              <h1 className="text-4xl md:text-5xl font-heading font-bold text-primary-foreground mb-6">
+              <h1 className="text-4xl md:text-5xl font-heading font-bold hero-text mb-6">
                 {t('about.title')}
               </h1>
             </ScrollReveal>
             <ScrollReveal variant="fade-up" delay={100}>
-              <p className="text-xl text-primary-foreground/70">
+              <p className="text-xl hero-text-muted">
                 Heilongjiang Kaihua Automobile Import and Export Trading Co., Ltd.
               </p>
             </ScrollReveal>
