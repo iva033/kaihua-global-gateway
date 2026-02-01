@@ -266,7 +266,7 @@ const translations: Record<Language, Record<string, string>> = {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [language, setLanguage] = useState<Language>(() => {
+  const [language, setLanguageState] = useState<Language>(() => {
     const saved = localStorage.getItem('kaihua-language');
     return (saved as Language) || 'ru';
   });
@@ -274,6 +274,18 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   useEffect(() => {
     localStorage.setItem('kaihua-language', language);
   }, [language]);
+
+  const setLanguage = (lang: Language) => {
+    // Add transition class for smooth animation
+    document.documentElement.classList.add('language-transitioning');
+    
+    setLanguageState(lang);
+    
+    // Remove class after animation completes
+    setTimeout(() => {
+      document.documentElement.classList.remove('language-transitioning');
+    }, 400);
+  };
 
   const t = (key: string): string => {
     return translations[language][key] || key;

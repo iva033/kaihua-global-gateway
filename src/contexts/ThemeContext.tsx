@@ -22,7 +22,15 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   }, [theme]);
 
   const toggleTheme = () => {
+    // Add transition class for smooth animation
+    document.documentElement.classList.add('theme-transitioning');
+    
     setTheme(prev => prev === 'light' ? 'dark' : 'light');
+    
+    // Remove class after animation completes
+    setTimeout(() => {
+      document.documentElement.classList.remove('theme-transitioning');
+    }, 500);
   };
 
   return (
