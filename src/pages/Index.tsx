@@ -84,13 +84,17 @@ const Index = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/40" />
 
         {/* Animated Scroll Arrow */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2">
+        <button
+          onClick={() => document.getElementById('main-content')?.scrollIntoView({ behavior: 'smooth' })}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 cursor-pointer select-none outline-none transition-transform duration-200 hover:scale-110 active:scale-95"
+          aria-label="Scroll to main content"
+        >
           <div className="animate-bounce">
             <div className="w-10 h-10 rounded-full border-2 border-white/60 backdrop-blur-sm bg-white/10 flex items-center justify-center">
               <ChevronDown className="h-5 w-5 text-white animate-pulse" />
             </div>
           </div>
-        </div>
+        </button>
       </section>
 
       {/* Title Section - Below Video */}
