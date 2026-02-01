@@ -122,6 +122,7 @@ const translations: Record<Language, Record<string, string>> = {
     
     // Contact Form
     'contact.title': 'Начать сотрудничество',
+    'contact.subtitle': 'Заполните форму и мы свяжемся с вами в ближайшее время',
     'contact.name': 'Ваше имя',
     'contact.phone': 'Телефон',
     'contact.email': 'Email',
@@ -130,6 +131,18 @@ const translations: Record<Language, Record<string, string>> = {
     'contact.submit': 'Отправить заявку',
     'contact.success': 'Заявка отправлена!',
     'contact.error': 'Ошибка отправки',
+    'contact.captcha': 'Подтвердите, что вы не робот',
+    'contact.captcha.error': 'Решите пример для отправки формы',
+    'contact.captcha.success': 'Проверка пройдена',
+    'contact.captcha.refresh': 'Обновить',
+    'contact.info.title': 'Контактная информация',
+    'contact.info.address': 'Адрес',
+    'contact.info.phone': 'Телефон',
+    'contact.info.email': 'Email',
+    'contact.info.hours': 'Время работы',
+    'contact.info.hours.value': 'Пн–Пт: 9:00 – 18:00 (UTC+8)',
+    'contact.company.title': 'Реквизиты компании',
+    'contact.form.title': 'Отправить заявку',
     
     // Footer
     'footer.rights': 'Все права защищены',
@@ -248,6 +261,7 @@ const translations: Record<Language, Record<string, string>> = {
     
     // Contact Form
     'contact.title': 'Start Partnership',
+    'contact.subtitle': 'Fill out the form and we will contact you shortly',
     'contact.name': 'Your Name',
     'contact.phone': 'Phone',
     'contact.email': 'Email',
@@ -256,6 +270,18 @@ const translations: Record<Language, Record<string, string>> = {
     'contact.submit': 'Send Request',
     'contact.success': 'Request sent!',
     'contact.error': 'Submission error',
+    'contact.captcha': 'Confirm you are not a robot',
+    'contact.captcha.error': 'Solve the equation to submit',
+    'contact.captcha.success': 'Verification passed',
+    'contact.captcha.refresh': 'Refresh',
+    'contact.info.title': 'Contact Information',
+    'contact.info.address': 'Address',
+    'contact.info.phone': 'Phone',
+    'contact.info.email': 'Email',
+    'contact.info.hours': 'Working Hours',
+    'contact.info.hours.value': 'Mon–Fri: 9:00 AM – 6:00 PM (UTC+8)',
+    'contact.company.title': 'Company Details',
+    'contact.form.title': 'Send a Request',
     
     // Footer
     'footer.rights': 'All rights reserved',

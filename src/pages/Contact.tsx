@@ -9,23 +9,23 @@ const Contact = () => {
   const contactInfo = [
     {
       icon: MapPin,
-      title: 'Адрес',
+      titleKey: 'contact.info.address',
       content: '7th Floor, No. 4 Huihong Financial Port, No. 32 Chuangxin 2nd Road, Songbei District, Harbin',
     },
     {
       icon: Phone,
-      title: 'Телефон',
+      titleKey: 'contact.info.phone',
       content: '+86 189 4344 4284',
     },
     {
       icon: Mail,
-      title: 'Email',
+      titleKey: 'contact.info.email',
       content: 'export@kaihua-auto.com',
     },
     {
       icon: Clock,
-      title: 'Время работы',
-      content: 'Пн–Пт: 9:00 – 18:00 (UTC+8)',
+      titleKey: 'contact.info.hours',
+      contentKey: 'contact.info.hours.value',
     },
   ];
 
@@ -42,7 +42,7 @@ const Contact = () => {
             </ScrollReveal>
             <ScrollReveal variant="fade-up" delay={100}>
               <p className="text-xl hero-text-muted">
-                Заполните форму и мы свяжемся с вами в ближайшее время
+                {t('contact.subtitle')}
               </p>
             </ScrollReveal>
           </div>
@@ -57,18 +57,20 @@ const Contact = () => {
             <div className="lg:col-span-1 space-y-6">
               <ScrollReveal variant="fade-right">
                 <h2 className="text-2xl font-heading font-bold mb-8">
-                  Контактная информация
+                  {t('contact.info.title')}
                 </h2>
               </ScrollReveal>
               {contactInfo.map((item, index) => (
-                <ScrollReveal key={item.title} variant="fade-right" delay={(index + 1) * 100}>
+                <ScrollReveal key={item.titleKey} variant="fade-right" delay={(index + 1) * 100}>
                   <div className="flex items-start gap-4 p-4 rounded-xl bg-card border border-border/50">
                     <div className="w-12 h-12 rounded-lg gradient-primary flex items-center justify-center flex-shrink-0">
                       <item.icon className="h-5 w-5 text-primary-foreground" />
                     </div>
                     <div>
-                      <h3 className="font-semibold mb-1">{item.title}</h3>
-                      <p className="text-sm text-muted-foreground">{item.content}</p>
+                      <h3 className="font-semibold mb-1">{t(item.titleKey)}</h3>
+                      <p className="text-sm text-muted-foreground">
+                        {item.contentKey ? t(item.contentKey) : item.content}
+                      </p>
                     </div>
                   </div>
                 </ScrollReveal>
@@ -77,7 +79,7 @@ const Contact = () => {
               {/* Company Info */}
               <ScrollReveal variant="fade-right" delay={500}>
                 <div className="p-6 rounded-xl bg-muted/50 mt-8">
-                  <h3 className="font-heading font-semibold mb-3">Реквизиты компании</h3>
+                  <h3 className="font-heading font-semibold mb-3">{t('contact.company.title')}</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">
                     Heilongjiang Kaihua Automobile Import and Export Trading Co., Ltd.
                   </p>
@@ -93,7 +95,7 @@ const Contact = () => {
               <ScrollReveal variant="fade-left" delay={100}>
                 <div className="bg-card rounded-3xl p-8 md:p-12 border border-border/50 shadow-lg">
                   <h2 className="text-2xl font-heading font-bold mb-8">
-                    Отправить заявку
+                    {t('contact.form.title')}
                   </h2>
                   <ContactForm />
                 </div>
