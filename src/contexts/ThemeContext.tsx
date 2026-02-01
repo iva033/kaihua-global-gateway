@@ -48,9 +48,10 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     
     setTheme(newTheme);
     
+    // Extended timeout for smoother transition completion
     setTimeout(() => {
       document.documentElement.classList.remove('theme-transitioning');
-    }, 500);
+    }, 700);
   }, [theme, soundEnabled]);
 
   return (
