@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
+import { playSuccessSound, playErrorSound, playClickSound } from '@/lib/sounds';
 
 const contactSchema = z.object({
   name: z.string().trim().min(2, 'Минимум 2 символа').max(100, 'Максимум 100 символов'),
@@ -34,16 +35,24 @@ const ContactForm = () => {
   });
 
   const onSubmit = async (data: ContactFormData) => {
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    playClickSound();
     
-    console.log('Form submitted:', { ...data, email: '[REDACTED]', phone: '[REDACTED]' });
-    
-    setIsSubmitted(true);
-    toast.success(t('contact.success'));
-    reset();
-    
-    setTimeout(() => setIsSubmitted(false), 3000);
+    try {
+      // Simulate form submission
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      
+      console.log('Form submitted:', { ...data, email: '[REDACTED]', phone: '[REDACTED]' });
+      
+      setIsSubmitted(true);
+      playSuccessSound();
+      toast.success(t('contact.success'));
+      reset();
+      
+      setTimeout(() => setIsSubmitted(false), 3000);
+    } catch (error) {
+      playErrorSound();
+      toast.error(t('contact.error'));
+    }
   };
 
   return (
