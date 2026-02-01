@@ -144,13 +144,14 @@ const About = () => {
               >
                 <div className="relative">
                   <iframe
-                    src="https://yandex.ru/map-widget/v1/?um=constructor%3A0c6f1d7e7f8b9a0b1c2d3e4f5g6h7i8j&amp;source=constructor&amp;ll=130.351389%2C46.925556&amp;z=14&amp;pt=130.351389,46.925556,pm2rdm"
+                    src="https://yandex.ru/map-widget/v1/?ll=130.361800%2C46.808100&z=13&l=map&pt=130.361800,46.808100,pm2rdm"
                     width="100%"
                     height="400"
                     frameBorder="0"
                     allowFullScreen
+                    style={{ border: 0 }}
                     className="pointer-events-none"
-                    title="Местоположение компании Kaihua"
+                    title="Местоположение компании Kaihua — г. Цзямусы"
                   />
                   <div className="absolute inset-0 bg-transparent group-hover:bg-primary/5 transition-colors duration-300 flex items-center justify-center">
                     <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-primary text-primary-foreground px-6 py-3 rounded-full font-medium shadow-lg">
