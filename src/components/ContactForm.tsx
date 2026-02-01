@@ -10,6 +10,8 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
 import { playSuccessSound, playErrorSound, playClickSound } from '@/lib/sounds';
+import { supabase } from '@/integrations/supabase/client';
+import SimpleCaptcha from './SimpleCaptcha';
 
 const contactSchema = z.object({
   name: z.string().trim().min(2, 'Минимум 2 символа').max(100, 'Максимум 100 символов'),
@@ -24,6 +26,8 @@ type ContactFormData = z.infer<typeof contactSchema>;
 const ContactForm = () => {
   const { t } = useLanguage();
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isCaptchaValid, setIsCaptchaValid] = useState(false);
+  const [captchaError, setCaptchaError] = useState(false);
   
   const {
     register,
@@ -35,21 +39,34 @@ const ContactForm = () => {
   });
 
   const onSubmit = async (data: ContactFormData) => {
+    if (!isCaptchaValid) {
+      setCaptchaError(true);
+      return;
+    }
+    
     playClickSound();
+    setCaptchaError(false);
     
     try {
-      // Simulate form submission
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      const { data: response, error } = await supabase.functions.invoke('send-telegram', {
+        body: data,
+      });
       
-      console.log('Form submitted:', { ...data, email: '[REDACTED]', phone: '[REDACTED]' });
+      if (error) {
+        throw error;
+      }
+      
+      console.log('Form submitted successfully');
       
       setIsSubmitted(true);
       playSuccessSound();
       toast.success(t('contact.success'));
       reset();
+      setIsCaptchaValid(false);
       
       setTimeout(() => setIsSubmitted(false), 3000);
     } catch (error) {
+      console.error('Error submitting form:', error);
       playErrorSound();
       toast.error(t('contact.error'));
     }
@@ -125,6 +142,8 @@ const ContactForm = () => {
           <p className="text-sm text-destructive">{errors.message.message}</p>
         )}
       </div>
+
+      <SimpleCaptcha onVerify={setIsCaptchaValid} error={captchaError} />
 
       <Button
         type="submit"
