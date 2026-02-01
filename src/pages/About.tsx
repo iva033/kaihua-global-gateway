@@ -114,7 +114,7 @@ const About = () => {
               {t('about.location')}
             </h2>
           </ScrollReveal>
-          <div className="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto mb-12">
             <ScrollReveal variant="fade-right" delay={100}>
               <div className="bg-card rounded-2xl p-8 border border-border/50 h-full">
                 <MapPin className="h-8 w-8 text-primary mb-4" />
@@ -132,6 +132,38 @@ const About = () => {
               </div>
             </ScrollReveal>
           </div>
+
+          {/* Yandex Map */}
+          <ScrollReveal variant="zoom-in" delay={300}>
+            <div className="max-w-4xl mx-auto">
+              <a
+                href="https://yandex.ru/maps/-/CHEn4L-f"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block rounded-2xl overflow-hidden border border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10 group"
+              >
+                <div className="relative">
+                  <iframe
+                    src="https://yandex.ru/map-widget/v1/?um=constructor%3A0c6f1d7e7f8b9a0b1c2d3e4f5g6h7i8j&amp;source=constructor&amp;ll=130.351389%2C46.925556&amp;z=14&amp;pt=130.351389,46.925556,pm2rdm"
+                    width="100%"
+                    height="400"
+                    frameBorder="0"
+                    allowFullScreen
+                    className="pointer-events-none"
+                    title="Местоположение компании Kaihua"
+                  />
+                  <div className="absolute inset-0 bg-transparent group-hover:bg-primary/5 transition-colors duration-300 flex items-center justify-center">
+                    <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-primary text-primary-foreground px-6 py-3 rounded-full font-medium shadow-lg">
+                      Открыть в Яндекс Картах
+                    </div>
+                  </div>
+                </div>
+              </a>
+              <p className="text-center text-muted-foreground text-sm mt-4">
+                Нажмите на карту, чтобы открыть в Яндекс Картах
+              </p>
+            </div>
+          </ScrollReveal>
         </div>
       </section>
     </div>
