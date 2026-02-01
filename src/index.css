@@ -185,16 +185,66 @@
   }
 }
 
-/* Theme transition animation */
+/* Smooth base transitions for theme-aware properties */
+:root {
+  --theme-transition-duration: 0.6s;
+  --theme-transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Always-on smooth transitions for key properties */
+body,
+.bg-background,
+.bg-card,
+.bg-muted,
+.bg-popover {
+  transition: background-color var(--theme-transition-duration) var(--theme-transition-timing);
+}
+
+/* Theme transition animation - enhanced smoothness */
+.theme-transitioning {
+  /* Apply to pseudo-elements too */
+  &::before,
+  &::after {
+    transition: 
+      background-color var(--theme-transition-duration) var(--theme-transition-timing),
+      opacity var(--theme-transition-duration) var(--theme-transition-timing) !important;
+  }
+}
+
 .theme-transitioning,
-.theme-transitioning * {
+.theme-transitioning *,
+.theme-transitioning *::before,
+.theme-transitioning *::after {
   transition: 
-    background-color 0.5s ease,
-    border-color 0.5s ease,
-    color 0.4s ease,
-    box-shadow 0.5s ease,
-    fill 0.4s ease,
-    stroke 0.4s ease !important;
+    background-color var(--theme-transition-duration) var(--theme-transition-timing),
+    background var(--theme-transition-duration) var(--theme-transition-timing),
+    border-color var(--theme-transition-duration) var(--theme-transition-timing),
+    color 0.5s var(--theme-transition-timing),
+    box-shadow var(--theme-transition-duration) var(--theme-transition-timing),
+    fill 0.5s var(--theme-transition-timing),
+    stroke 0.5s var(--theme-transition-timing),
+    opacity 0.4s var(--theme-transition-timing) !important;
+}
+
+/* Prevent transition on elements that shouldn't animate */
+.theme-transitioning img,
+.theme-transitioning video,
+.theme-transitioning iframe,
+.theme-transitioning canvas {
+  transition: none !important;
+}
+
+/* Gradient elements need special handling */
+.theme-transitioning .gradient-primary,
+.theme-transitioning .gradient-metallic,
+.theme-transitioning .gradient-hero,
+.theme-transitioning .gradient-subtle,
+.theme-transitioning .glass,
+.theme-transitioning .glass-dark {
+  transition: 
+    background var(--theme-transition-duration) var(--theme-transition-timing),
+    backdrop-filter var(--theme-transition-duration) var(--theme-transition-timing),
+    -webkit-backdrop-filter var(--theme-transition-duration) var(--theme-transition-timing) !important;
 }
 
 /* Language transition animation */
