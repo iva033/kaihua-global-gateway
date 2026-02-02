@@ -74,7 +74,7 @@ const Header = () => {
             <img
               src={logo}
               alt="Kaihua"
-              className="h-10 w-10 object-contain"
+              className="h-10 w-10 object-contain drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] dark:drop-shadow-[0_2px_6px_rgba(255,255,255,0.15)]"
             />
             <div className="hidden sm:block">
               <span className="text-lg font-heading font-bold hero-text">
