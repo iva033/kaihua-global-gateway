@@ -9,7 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
-import { playSuccessSound, playErrorSound, playClickSound } from '@/lib/sounds';
+
 import { supabase } from '@/integrations/supabase/client';
 import SimpleCaptcha from './SimpleCaptcha';
 
@@ -44,7 +44,6 @@ const ContactForm = () => {
       return;
     }
     
-    playClickSound();
     setCaptchaError(false);
     
     try {
@@ -59,7 +58,6 @@ const ContactForm = () => {
       console.log('Form submitted successfully');
       
       setIsSubmitted(true);
-      playSuccessSound();
       toast.success(t('contact.success'));
       reset();
       setIsCaptchaValid(false);
@@ -67,7 +65,6 @@ const ContactForm = () => {
       setTimeout(() => setIsSubmitted(false), 3000);
     } catch (error) {
       console.error('Error submitting form:', error);
-      playErrorSound();
       toast.error(t('contact.error'));
     }
   };
